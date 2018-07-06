@@ -3,7 +3,7 @@ module Surveymonkey
     # Survey endpoints
     module Survey
 
-      # Return all surveys in an array
+      # Return all surveys
       def surveys(options = {})
         response = self.class.get('/surveys', { query: options })
         response.parsed_response
