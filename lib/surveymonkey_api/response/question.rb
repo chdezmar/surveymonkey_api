@@ -10,11 +10,11 @@ module Surveymonkey
 
     # Match response titles
     def title
-      
+      # structure['pages'].detect {|a| a['id'] == '26454464'}['questions'].detect {|q| q['id'] == '66700806'}['headings'].first['heading']
     end
 
     def answers
-      raw_data['answers'].each_with_object([]) do |answer, arr|
+      @answers ||= raw_data['answers'].each_with_object([]) do |answer, arr|
         arr << Surveymonkey::Response::Question::Answer.new(answer)
       end
     end

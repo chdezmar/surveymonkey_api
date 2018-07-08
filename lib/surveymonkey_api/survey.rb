@@ -8,7 +8,7 @@ module Surveymonkey
     end
 
     def details(options = {})
-      client.survey_details(id, options)
+      @details ||= client.survey_details(id, options)
     end
 
     def raw_responses(options = {})
@@ -16,7 +16,7 @@ module Surveymonkey
     end
 
     def responses(options = {})
-      client.survey_responses(id, options)['data'].each_with_object([]) do |response, arr|
+      @responses ||= client.survey_responses(id, options)['data'].each_with_object([]) do |response, arr|
         arr << Surveymonkey::Response.new(id, response['id'])
       end
     end
