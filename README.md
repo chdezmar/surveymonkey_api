@@ -21,6 +21,8 @@ Or install it yourself as:
 
 ## Usage
 
+You will need an [access token](https://developer.surveymonkey.com/api/v3/#registering-an-app) for the SurveyMonkey API and save the token in an env variable 'SURVEYMONKEY_API_TOKEN'.
+
 Access a survey:
 ```ruby
 Surveymonkey::Survey.new('survey_id')
