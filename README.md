@@ -1,8 +1,7 @@
 # SurveymonkeyApi
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/surveymonkey_api`. To experiment with that code, run `bin/console` for an interactive prompt.
+Easily interact with the SurveyMonkey API v3. Access matched questions and answers.
 
-TODO: Delete this and the text above, and describe your gem
 
 ## Installation
 
@@ -22,7 +21,30 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Access a survey:
+```ruby
+Surveymonkey::Survey.new('survey_id')
+```
+
+Access a survey responses:
+```ruby
+survey = _
+survey.responses
+responses = _
+```
+
+Access the first response, and go through each page, question and answer and print the titles:
+```ruby
+responses.first.pages.each do |page|
+  puts page.title
+  page.questions.each do |question|
+    puts question.title
+    question.answers.each do |answer|
+      puts answer.title
+    end
+  end
+end
+```
 
 ## Development
 
@@ -32,7 +54,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/surveymonkey_api.
+Bug reports and pull requests are welcome on GitHub at https://github.com/chdezmar/surveymonkey_api.
 
 ## License
 

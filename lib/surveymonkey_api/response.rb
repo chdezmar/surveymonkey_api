@@ -1,11 +1,13 @@
 module Surveymonkey
-  # Survey
+  # Response
   class Response
-    attr_reader :survey_id, :id
+    extend Forwardable
+    attr_reader :survey_id, :id, :survey_structure
 
     def initialize(survey_id, id)
       @survey_id = survey_id
       @id = id
+      @survey_structure = Surveymonkey::Survey.new(survey_id)
     end
 
     def raw_details(options = {})
@@ -14,9 +16,14 @@ module Surveymonkey
 
     def pages(options = {})
       @pages ||= client.survey_response(survey_id, id, options)['pages'].each_with_object([]) do |page, arr|
-        arr << Surveymonkey::Response::Page.new(page) unless page['questions'].empty?
+        if !page['questions'].empty?
+          page_structure = details['pages'].detect{|p| p['id'] == page['id']}
+          arr << Surveymonkey::Response::Page.new(page, page_structure)
+        end
       end
     end
+
+    def_delegators :@survey_structure, :details
 
     private
 
