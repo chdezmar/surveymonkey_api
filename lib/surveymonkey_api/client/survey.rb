@@ -9,9 +9,15 @@ module Surveymonkey
         response.parsed_response
       end
 
-      # Return survey folders
+      # Return all survey folders
       def survey_folders(options = {})
         response = self.class.get("/survey_folders", { query: options })
+        response.parsed_response
+      end
+
+      # Return surveys folder
+      def survey_folder(folder_id, options = {})
+        response = self.class.get("/survey_folders/#{folder_id}", { query: options })
         response.parsed_response
       end
 
