@@ -27,13 +27,26 @@ module Surveymonkey
         response.parsed_response
       end
 
-      # Return all survey responses
+      # Return all survey responses paginated
       def survey_responses(survey_id, options = {})
         response = self.class.get("/surveys/#{survey_id}/responses/bulk", { query: options })
         response.parsed_response
       end
 
-      # Return survey responses
+
+      # Return all survey responses
+      def all_survey_responses(survey_id, options = {})
+        response = self.class.get("/surveys/#{survey_id}/responses/bulk", { query: options })
+        surveys = []
+        surveys << if response['total'] > response['per_page']
+                    get_all_pages(response['links'])
+                  else
+                    response['data']
+                  end
+        surveys.flatten
+      end
+
+      # Return survey response
       def survey_response(survey_id, response_id, options = {})
         response = self.class.get("/surveys/#{survey_id}/responses/#{response_id}/details", { query: options })
         response.parsed_response

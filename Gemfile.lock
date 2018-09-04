@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    surveymonkey_api (0.2.0)
+    surveymonkey_api (0.2.2)
       httparty (~> 0.13)
 
 GEM
