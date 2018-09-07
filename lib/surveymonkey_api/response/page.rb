@@ -16,7 +16,7 @@ module Surveymonkey
 
     def questions
       @questions ||= raw_data['questions'].each_with_object([]) do |question, arr|
-        question_structure = page_structure['questions'].detect{|q| q['id'] == question['id']}
+        question_structure = page_structure['questions'].detect { |q| q['id'] == question['id'] }
         arr << Surveymonkey::Response::Question.new(question, question_structure)
       end
     end

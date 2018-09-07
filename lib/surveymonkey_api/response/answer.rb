@@ -12,10 +12,10 @@ module Surveymonkey
     # Match answer title
     def title
       @title ||= if raw_data['text']
-        raw_data['text']
-      else
-        answer_structure['choices'].detect {|c| c['id'] == id}['text']
-      end
+                   raw_data['text']
+                 else
+                   answer_structure['choices'].detect { |c| c['id'] == id }['text']
+                 end
     end
   end
 end

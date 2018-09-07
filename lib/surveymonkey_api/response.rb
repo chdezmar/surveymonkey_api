@@ -11,13 +11,17 @@ module Surveymonkey
     end
 
     def raw_details(options = {})
-      client.survey_response(survey_id, id, options)
+      @raw_details ||= client.survey_response(survey_id, id, options)
+    end
+
+    def info
+      raw_details.dup.tap { |h| h.delete('pages') }
     end
 
     def pages(options = {})
-      @pages ||= client.survey_response(survey_id, id, options)['pages'].each_with_object([]) do |page, arr|
-        if !page['questions'].empty?
-          page_structure = details['pages'].detect{|p| p['id'] == page['id']}
+      @pages ||= raw_details(options)['pages'].each_with_object([]) do |page, arr|
+        unless page['questions'].empty?
+          page_structure = details['pages'].detect { |p| p['id'] == page['id'] }
           arr << Surveymonkey::Response::Page.new(page, page_structure)
         end
       end

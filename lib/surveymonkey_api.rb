@@ -1,6 +1,6 @@
 require 'httparty'
 require 'uri'
-require "surveymonkey_api/version"
+require 'surveymonkey_api/version'
 require 'surveymonkey_api/client/survey'
 require 'surveymonkey_api/client'
 require 'surveymonkey_api/survey'
