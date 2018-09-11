@@ -5,7 +5,7 @@ module Surveymonkey
 
     def initialize(raw_data, answer_structure)
       @raw_data = raw_data
-      @id = raw_data['choice_id'] || raw_data['other_id']
+      @id = raw_data['row_id'] || raw_data['choice_id'] || raw_data['other_id']
       @answer_structure = answer_structure
     end
 
@@ -14,8 +14,13 @@ module Surveymonkey
       @title ||= if raw_data['text']
                    raw_data['text']
                  else
-                   answer_structure['choices'].detect { |c| c['id'] == id }['text']
+                   answer_structure['choices'].detect { |c| c['id'] == raw_data['choice_id'] }['text']
                  end
+    end
+
+    def label
+      return unless raw_data['row_id']
+      @label ||= answer_structure['rows'].detect { |r| r['id'] == id }['text']
     end
   end
 end
