@@ -20,7 +20,7 @@ GEM
     pry-byebug (3.6.0)
       byebug (~> 10.0)
       pry (~> 0.10)
-    rake (10.4.2)
+    rake (13.0.1)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
@@ -41,7 +41,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.16)
   pry-byebug (~> 3.1)
-  rake (~> 10.0)
+  rake (~> 13.0)
   rspec (~> 3.0)
   surveymonkey_api!
 
